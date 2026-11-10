@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 namespace PigeonManagement
@@ -60,7 +60,7 @@ namespace PigeonManagement
                 status = "Deceased";
             }
 
-            Console.WriteLine("| {0,-11} | {1,-7} | {2,-18} | {3,-10} | {4,-12} | {5,-9} |",
+            Console.WriteLine("| {0,-11} | {1,-7} | {2,-18} | {3,-10} | {4,-12} | {5,-9}  |",
                 RingNumber,
                 PigeonType,
                 Breed,
@@ -188,7 +188,7 @@ namespace PigeonManagement
         {
             Console.Clear();
 
-            Console.Write("|                     {0,-38} |", "System History");
+            
 
             if (!File.Exists("PigeonHistory.txt"))
             {
@@ -224,7 +224,7 @@ namespace PigeonManagement
             Console.WriteLine();
 
             Console.WriteLine("=======================================================================================");
-            Console.WriteLine("| {0,-11} | {1,-7} | {2,-18} | {3,-10} | {4,-12} | {5,-9} |", "Ring Number", "Type", "Breed", "Color", "Birth Date", "Status");
+            Console.WriteLine("| {0,-11} | {1,-7} | {2,-18} | {3,-10} | {4,-12} | {5,-9}  |", "Ring Number", "Type", "Breed", "Color", "Birth Date", "Status");
             Console.WriteLine("=======================================================================================");
 
             foreach (Pigeon pigeon in pigeonList)
@@ -232,9 +232,7 @@ namespace PigeonManagement
                 pigeon.DisplayInfo();
             }
 
-            Console.WriteLine("=======================================================================================");
-            Console.WriteLine("Total Pigeons: " + pigeonList.Count);
-            Console.WriteLine("=======================================================================================");
+          
 
         }
         private void DisplaySeparateTables()
@@ -253,21 +251,30 @@ namespace PigeonManagement
                     fancyPigeons.Add(pigeon);
                 }
             }
-
-            Console.Write("|                                    {0,-47} |", "RACING PIGEONS");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("|                                    {0,-47}  |", "RACING PIGEONS");
             if (racingPigeons.Count > 0)
             {
+       
                 DisplayPigeonTable(racingPigeons);
+                Console.WriteLine("=======================================================================================");
+                Console.WriteLine("Total Racing Pigeons: " + racingPigeons.Count) ;
+                Console.WriteLine("=======================================================================================");
+                Console.ResetColor();
             }
             else
             {
                 Console.WriteLine("No Racing Pigeons found.");
             }
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
-            Console.Write("|                                    {0,-47} |", "FANCY PIGEONS");
+            Console.Write("|                                    {0,-47}  |", "FANCY PIGEONS");
             if (fancyPigeons.Count > 0)
             {
                 DisplayPigeonTable(fancyPigeons);
+                Console.WriteLine("=======================================================================================");
+                Console.WriteLine("Total Fancy Pigeons: " + fancyPigeons.Count);
+                Console.WriteLine("=======================================================================================");
             }
             else
             {
@@ -283,8 +290,29 @@ namespace PigeonManagement
                 Console.WriteLine("No pigeon records found.");
                 return;
             }
-
+            int alivecount = 0;
+            int deadcount = 0;
+            foreach (Pigeon p in pigeons)
+            {
+                if(p.IsAlive)
+                {
+                    alivecount++;
+                }
+                else
+                {
+                    deadcount++;
+                }
+                
+            }
             DisplaySeparateTables();
+            Console.ForegroundColor= ConsoleColor.Green;
+            Console.WriteLine("\nTotal Alive Pigeons: " + alivecount);
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            Console.WriteLine("\nTotal Dead Pigeons: " + deadcount);
+            Console.ResetColor();
+
+
         }
 
 
@@ -610,12 +638,15 @@ namespace PigeonManagement
                 Console.Clear();
 
                 Console.WriteLine("========== MANAGE PIGEONS ==========");
-                Console.WriteLine("1. Add Pigeon");
-                Console.WriteLine("2. Edit Pigeon");
-                Console.WriteLine("3. Search Pigeon");
-                Console.WriteLine("4. Change Pigeon Status");
-                Console.WriteLine("5. Delete Pigeon");
-                Console.WriteLine("6. Back to Main Menu");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("[1]. Add Pigeon");
+                Console.WriteLine("[2]. Edit Pigeon");
+                Console.WriteLine("[3]. Search Pigeon");
+                Console.WriteLine("[4]. Change Pigeon Status");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[5]. Delete Pigeon");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("[6]. Back to Main Menu");
 
                 Console.Write("\nEnter your choice: ");
                 choice = Console.ReadLine();
@@ -671,15 +702,25 @@ namespace PigeonManagement
             while (choice != "4")
             {
                 Console.Clear();
-
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine(@"
+                    
+____________    __      ____________
+\_____     /   /_ \     \     _____/
+ \_____    \____/  \____/    _____/
+  \_____                    _____/
+     \___________  ___________/
+               /____\
+");
+                Console.ForegroundColor = ConsoleColor.White;   
                 Console.WriteLine("==================================");
                 Console.WriteLine("       PIGEON MANAGEMENT SYSTEM");
                 Console.WriteLine("==================================");
 
-                Console.WriteLine("1. Show All Pigeons");
-                Console.WriteLine("2. Manage Pigeons");
-                Console.WriteLine("3. View System History");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("[1]. Show All Pigeons");
+                Console.WriteLine("[2]. Manage Pigeons");
+                Console.WriteLine("[3]. View System History");
+                Console.WriteLine("[4]. Exit");
 
                 Console.Write("\nEnter your choice: ");
                 choice = Console.ReadLine();
